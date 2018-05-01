@@ -1,0 +1,14 @@
+{% extends 'layouts/default.njk' %}
+
+{% block body %}
+  <div class="auth-wrapper">
+    <h1>Docfy</h1>
+    <form method="POST" action="/register" class="form-signin">
+      <input type="text" name="name" placeholder="Digite seu nome completo" required="required" autofocus="autofocus">
+      <input type="email" name="email" placeholder="Digite seu e-mail" required="required">
+      <input type="password" name="password" placeholder="Digite sua senha" required="required">
+      <button type="submit">Criar conta</button>
+      <a href="/">Já tenho conta</a>
+    </form>
+  </div>
+{% endblock %}
