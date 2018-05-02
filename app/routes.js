@@ -37,17 +37,17 @@ routes.get('/app/projects/:id', projectController.show);
 routes.post('/app/projects/create', projectController.store);
 routes.delete('/app/projects/delete/:id', projectController.destroy);
 
+routes.get('/app/projects/:id/section/:sectionId', projectController.showSection);
+
 /**
  * Sections
  */
-routes.get('/app/projects/:projectId/sections/:id', sectionController.show);
+routes.get('/app/sections/new/:projectId', sectionController.new);
 routes.post('/app/sections/create', sectionController.store);
-routes.put('/app/sections/update/:id', sectionController.update);
 routes.delete('/app/sections/delete/:id', sectionController.destroy);
 
 // catch 404
 routes.use((req, res) => res.render('errors/404'));
-
 
 // error handler
 routes.use((err, req, res, _next) => {

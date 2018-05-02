@@ -1,0 +1,31 @@
+{% extends "layouts/default.njk" %}
+
+{% block body %}
+
+<div class="wrapper">
+  {% include 'partials/header.njk' %}
+
+  <section id="main">
+    <div class="container">
+      <header>
+        <h2>{{ project.title }}</h2>
+      </header>
+
+
+      <div class="addon">
+        <form action="/app/sections/create" method="POST">
+          <input type="hidden" name="ProjectId" value="{{ project.id }}" />
+          <input type="text" name="title" placeholder="Título do seção" required="required" autofocus="autofocus" style="width: 100%"/>
+
+          <div class="content-container">
+            <textarea name="content" class="mde" placeholder="Conteúdo do seção"></textarea>
+          </div>
+
+          <button type="submit" class="btn">Salvar</button>
+          <a href="/app/projects/{{ project.id }}" class="btn-link">Cancelar</a>
+        </form>
+      </div>
+  </section>
+</div>
+
+{% endblock %}

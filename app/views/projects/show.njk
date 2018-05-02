@@ -19,32 +19,33 @@
       <section id="content">
         <nav>
           <div class="sessions">
-            <a href="">Geral</a>
-            <a href="" class="active">Banco de dados</a>
-            <a href="">Autenticação</a>
-            <a href="">API</a>
-            <a href="">Configurações</a>
+            {% for section in sections %}
+              <a class="{% if currentSection and currentSection.id == section.id %}active{% endif %}" href="/app/projects/{{ project.id }}/section/{{ section.id }}">
+                {{ section.title }}
+              </a>
+            {% endfor %}
           </div>
-
-          <form action="" method="post">
-            <input type="text" name="name" placeholder="Nova seção">
-            <button type="submit" class="btn"><img src="img/plus.svg"></button>
-          </form>
+          <a href="/app/sections/new/{{ project.id }}" class="btn add-section">Nova seção</a>
         </nav>
 
         <article>
           <div class="project-header">
-            <h1>Banco de dados</h1>
-            <a href="">Remover seção</a>
+            {% if currentSection %}
+              <h1>{{ currentSection.title }}</h1>
+              <form action="/app/sections/delete/{{ currentSection.id }}?_method=DELETE" method="POST">
+                <input type="hidden" name="ProjectId" value="{{ project.id }}">
+                <button type="submit" class="btn-link">Remover seção</button>
+              </form>
+            {% else %}
+              <p>Nenhuma seção cadastrada</p>
+            {% endif %}
           </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          {{ currentSection.formattedContent | safe }}
         </article>
       </section>
     </div>
   </section>
+
 </div>
 
 {% endblock %}
